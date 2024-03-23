@@ -1,52 +1,95 @@
-let nombre = prompt ("Ingrese su nombre aquí!")
+let totalCarrito = 0
 
+class Producto{
+    constructor(nombre, precio){
+        this.nombre = nombre
+        this.precio = precio
+    }
+}
 
-let tekken = 2000;
-let streetFighter = 3500;
-let pokemon = 4000;
-let fotnite = 5000;
+let mortalKombat = new Producto("Mortal Kombat", 1900)
+let streetFighter = new Producto("Street Fighter", 1750)
+let tekken = new Producto("Tekken", 1600)
+let kof = new Producto("KOF", 1500)
+let pokemon = new Producto("Pokemon", 1380)
 
-alert ("Biendenido/a " + nombre );
+const arrayJuegos = [mortalKombat,streetFighter,tekken,kof,pokemon]
 
-let pedir = prompt ("¿Sabes que juego quieres adquirir? Ingrese SI o NO ");
-
-
-if ((pedir === "no") || (pedir === "No")|| (pedir === "NO") || (pedir === "nO")){
-    alert (" Esperemos que regrese pronto para comprar nuestros productos");
-} else {
-    let orden = prompt ("Ingresa el juego que quieras: tekken / streetFighter / pokemon / fortnite");
-
+function comprar(){
+    let opciones = parseInt(prompt(`Oprima 1 si quieres llevar ${arrayJuegos[0].nombre} por $${arrayJuegos[0].precio}\nOprima 2 si quieres llevar ${arrayJuegos[1].nombre} por $${arrayJuegos[1].precio}\nOprima 3 si quieres llevar ${arrayJuegos[2].nombre} por $${arrayJuegos[2].precio}\nOprima 4 si quieres llevar ${arrayJuegos[3].nombre} por $${arrayJuegos[3].precio}\nOprima 5 si quieres llevar ${arrayJuegos[4].nombre} por $${arrayJuegos[4].precio}\nOprima 6 si quieres filtrar por precio más bajo`))
     
-switch (orden){
-    case "tekken": 
-    alert ("Gracias por tu compra. Su total es de: $ " + tekken);
-
-    break;
-
-
-
-    case "streetFighter": 
-    alert ("Gracias por tu compra. Su total es de: $ " + streetFighter);
-
-    break;
-
-
-
-    case "pokemon": 
-    alert ("Gracias por tu compra. Su total es de: $ " + pokemon);
-    break;
-
-
-
-    case "fortnite": 
-    alert ("Gracias por tu compra. Su total es de: $ " + fortnite);
-    break;
-
+    while (opciones < 1 || opciones > 6){
+        opciones = parseInt(prompt(`Oprima 1 si quieres llevar ${arrayJuegos[0].nombre} por $${arrayJuegos[0].precio}\nOprima 2 si quieres llevar ${arrayJuegos[1].nombre} por $${arrayJuegos[1].precio}\nOprima 3 si quieres llevar ${arrayJuegos[2].nombre} por $${arrayJuegos[2].precio}\nOprima 4 si quieres llevar un ${arrayJuegos[3].nombre} por $${arrayJuegos[3].precio}\nOprima 5 si quieres llevar un ${arrayJuegos[4].nombre} por $${arrayJuegos[4].precio}\nOprima 6 si quieres filtrar por precio más bajo`))
+    }
+    let productoElegido;
+    if (opciones == 1){
+        productoElegido = arrayJuegos[0]
+        totalCarrito += arrayJuegos[0].precio 
+    }
+    else if (opciones == 2){
+        productoElegido = arrayJuegos[1]
+        totalCarrito += arrayJuegos[1].precio
+    }
+    else if (opciones == 3){
+        productoElegido = arrayJuegos[2]
+        totalCarrito += arrayJuegos[2].precio
+    }
+    else if (opciones == 4){
+        productoElegido = arrayJuegos[3]
+        totalCarrito += arrayJuegos[3].precio
+    }
+    else if (opciones == 5){
+        productoElegido = arrayJuegos[4]
+        totalCarrito += arrayJuegos[4].precio
+    }
+    else if (opciones == 6){
+        arrayJuegos.sort((a,b) => a.precio - b.precio)
+        opciones = parseInt(prompt(`Oprima 1 si quieres llevar un ${arrayJuegos[0].nombre} por $${arrayJuegos[0].precio}\nOprima 2 si quieres llevar un ${arrayJuegos[1].nombre} por $${arrayJuegos[1].precio}\nOprima 3 si quieres llevar un ${arrayJuegos[2].nombre} por $${arrayJuegos[2].precio}\nOprima 4 si quieres llevar un ${arrayJuegos[3].nombre} por $${arrayJuegos[3].precio}\nOprima 5 si quieres llevar un ${arrayJuegos[4].nombre} por $${arrayJuegos[4].precio}`))
+        while (opciones < 1 || opciones > 6){
+            opciones = parseInt(prompt(`Oprima 1 si quieres llevar un ${arrayJuegos[0].nombre} por $${arrayJuegos[0].precio}\nOprima 2 si quieres llevar un ${arrayJuegos[1].nombre} por $${arrayJuegos[1].precio}\nOprima 3 si quieres llevar un ${arrayJuegos[2].nombre} por $${arrayJuegos[2].precio}\nOprima 4 si quieres llevar un ${arrayJuegos[3].nombre} por $${arrayJuegos[3].precio}\nOprima 5 si quieres llevar un ${arrayJuegos[4].nombre} por $${arrayJuegos[4].precio}`))
+        }
+        if (opciones == 1){
+            productoElegido = arrayJuegos[0]
+            totalCarrito += arrayJuegos[0].precio
+        }
+        else if (opciones == 2){
+            productoElegido = arrayJuegos[1]
+            totalCarrito += arrayJuegos[1].precio
+        }
+        else if (opciones == 3){
+            productoElegido = arrayJuegos[2]
+            totalCarrito += arrayJuegos[2].precio
+        }
+        else if (opciones == 4){
+            productoElegido = arrayJuegos[3]
+            totalCarrito += arrayJuegos[3].precio
+        }
+        else if (opciones == 5){
+            productoElegido = arrayJuegos[4]
+            totalCarrito += arrayJuegos[4].precio
+    }
+    }
+    let confirmacion = confirm(`Usted eligió ${productoElegido.nombre} y sale $${productoElegido.precio}, quieres agregarlo al carrito?`)
+    if (confirmacion == true){
+        let confirmacion2 = confirm("El producto se ha agregado al carrito, quieres comprar algo más?")
+        if (confirmacion2 == true){
+            comprar()
+        } else{
+            let confirmacion3 = confirm(`El total es de ${totalCarrito}, quieres pagar?`)
+            if (confirmacion3 == true){
+                alert("Gracias por su compra!!")
+            } else{
+                alert("Ok, te esperamos pronto!!")
+            }
+        }
+    } else{
+        let confirmacion4 = confirm("Va a seguir comprando?")
+        if (confirmacion4 == true){
+            comprar()
+        } else{
+            alert("Ok, te esperamos pronto!!")
+        }
+    }
 }
-}
 
-function agradecer (){
-    alert ( nombre + ", ya hemos procesado su pedido. Se encuentra en prepración. Pronto será contactado.");
-}
-
-agradecer ()
+comprar()
